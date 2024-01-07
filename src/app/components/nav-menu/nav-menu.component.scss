@@ -1,9 +1,9 @@
-@import '~@angular/material/theming';
-@import '../../../sass/variables';
-@import '../../../sass/mixins';
+@use "@angular/material" as mat;
+@import "variables";
+@import "mixins";
 
 .main-nav {
-  background: map-get($mat-cyan, 500);
+  background: map-get(mat.$cyan-palette, 500);
   padding: 8px 16px;
   display: flex;
   flex: 0 0 auto;
@@ -11,17 +11,17 @@
   .nav-item {
     color: #fff;
     display: none;
+    text-decoration: none;
+    font-size: 14px;
   }
 
   .main-nav__toggle {
     color: #fff;
-    min-width: 50px;
-    padding: 0 5px;
   }
 
   @include screenAboveMobile {
     .nav-item {
-      display: inline-block;
+      display: inline-flex;
     }
 
     .main-nav__toggle {

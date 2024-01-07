@@ -1,20 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { ToggleSidenav } from '../../actions/ui';
+import { UiActions } from '../../ngrx/ui/ui.actions';
 
 @Component({
-  selector: 'app-nav-menu',
+  selector: 'jl-nav-menu',
   templateUrl: './nav-menu.component.html',
-  styleUrls: ['./nav-menu.component.scss']
+  styleUrls: ['./nav-menu.component.scss'],
 })
-export class NavMenuComponent implements OnInit {
-  constructor(private store: Store<any>) { }
-
-  ngOnInit() {
-  }
+export class NavMenuComponent {
+  constructor(private store: Store<any>) {}
 
   toggleSidenav() {
-    this.store.dispatch(new ToggleSidenav());
+    this.store.dispatch(UiActions.toggleSidenav());
   }
 }

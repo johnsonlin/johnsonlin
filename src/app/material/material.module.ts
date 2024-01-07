@@ -5,8 +5,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSidenavModule} from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { MatSidenavModule} from '@angular/material/sidenav';
     MatInputModule,
     MatGridListModule,
     MatDialogModule,
+    MatListModule,
   ],
   exports: [
     MatSidenavModule,
@@ -28,7 +30,7 @@ import { MatSidenavModule} from '@angular/material/sidenav';
     MatInputModule,
     MatGridListModule,
     MatDialogModule,
+    MatListModule,
   ],
 })
-export class MaterialModule {
-}
+export class MaterialModule {}

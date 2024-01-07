@@ -1,66 +1,110 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import Chart, {
+  ChartData,
+  ChartOptions,
+  ChartType,
+  ScaleChartOptions,
+  ScaleOptions,
+} from 'chart.js/auto';
 
 @Component({
-  selector: 'app-skills-matrix',
+  selector: 'jl-skills-matrix',
   templateUrl: './skills-matrix.component.html',
-  styleUrls: ['./skills-matrix.component.scss']
+  styleUrls: ['./skills-matrix.component.scss'],
 })
-export class SkillsMatrixComponent implements OnInit, AfterViewInit {
-  @Input() skillsets: any[] = [];
+export class SkillsMatrixComponent implements OnInit {
+  @Input() skillsets: {
+    name: string;
+    type: ChartType;
+    data: unknown;
+  }[] = [];
 
-  constructor(private elm: ElementRef) { }
+  chartOptions!: { [key in 'bar' | 'radar']: ChartOptions };
+  chartDataMap!: { [key: string]: ChartData };
+
+  constructor(private elm: ElementRef) {}
 
   ngOnInit() {
+    const commonOptions: ChartOptions = {
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          enabled: false,
+        },
+      },
+    };
+    const axisScaleOption: ScaleOptions = {
+      beginAtZero: true,
+      max: 5,
+      ticks: {
+        display: false,
+        stepSize: 1,
+      },
+      pointLabels: {
+        font: {
+          family: 'Roboto, "Helvetica Neue", Arial, sans-serif',
+          size: 14,
+        },
+      },
+    };
+
+    this.chartOptions = {
+      bar: {
+        ...commonOptions,
+        indexAxis: 'y',
+        scales: {
+          x: axisScaleOption,
+        },
+      },
+      radar: {
+        ...commonOptions,
+        scales: {
+          r: axisScaleOption,
+        },
+      },
+    };
+    this.chartDataMap = this.skillsets.reduce(
+      (dataMap, skillset) => ({
+        ...dataMap,
+        [skillset.name]: this.transformChartData(skillset.data),
+      }),
+      {},
+    );
   }
 
-  ngAfterViewInit() {
-    const canvasContainers = this.elm.nativeElement.querySelectorAll('.skillset__canvas');
-
-    if (this.skillsets.length) {
-      this.skillsets.forEach((item, i) => {
-        let canvas = canvasContainers[i].querySelector('canvas');
-
-        if (!canvas) {
-          canvas = document.createElement('canvas');
-          canvasContainers[i].appendChild(canvas);
-          this.drawChart(canvas, item.type, item);
-        }
-      });
-    }
-  }
-
-  drawChart(canvas, chartType, rawData) {
+  drawChart(canvas: any, chartType: ChartType, rawData: any) {
     const data = this.transformChartData(rawData.data);
     const ticks = {
       display: false,
       beginAtZero: true,
       stepSize: 1,
-      max: 5
+      max: 5,
     };
     const pointLabels = {
       fontFamily: 'Roboto, Arial, sans-serif',
-      fontSize: 14
+      fontSize: 14,
     };
-    let scaleOptions;
+    let scaleOptions: ChartOptions;
 
     switch (chartType) {
-      case 'horizontalBar':
+      case 'bar':
         scaleOptions = {
+          indexAxis: 'y',
           scales: {
-            xAxes: [{
+            /*xAxes: [{
               ticks,
               pointLabels
-            }]
-          }
+            }]*/
+          },
         };
         break;
+
       default:
         scaleOptions = {
-          scale: {
+          /*scale: {
             ticks,
             pointLabels
-          }
+          }*/
         };
         break;
     }
@@ -69,25 +113,27 @@ export class SkillsMatrixComponent implements OnInit, AfterViewInit {
       type: chartType,
       data,
       options: {
-        legend: {
+        /* legend: {
           display: false
-        },
-        ...scaleOptions
-      }
+        },*/
+        ...scaleOptions,
+      },
     });
   }
 
-  transformChartData(rawData) {
+  transformChartData(rawData: any): ChartData {
     const skillNames = Object.keys(rawData);
 
     return {
       labels: skillNames,
-      datasets: [{
-        backgroundColor: 'rgba(0, 188, 212, 0.5)',
-        borderColor: '#00bcd4',
-        pointBackgroundColor: '#00bcd4',
-        data: skillNames.map(item => rawData[item])
-      }]
+      datasets: [
+        {
+          backgroundColor: 'rgba(0, 188, 212, 0.5)',
+          borderColor: '#00bcd4',
+          pointBackgroundColor: '#00bcd4',
+          data: skillNames.map((item) => rawData[item]),
+        },
+      ],
     };
   }
 }

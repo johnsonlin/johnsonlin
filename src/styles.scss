@@ -1,1 +1,52 @@
-@import 'sass/styles.scss';
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+@import "variables";
+@import "frameworks";
+@import "theme";
+@import "typography";
+@import "mixins";
+@import "components/cube";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  min-height: 100%;
+}
+
+main {
+  display: block;
+  padding: 20px;
+}
+
+jl-root {
+  @include position(absolute, 0px 0px 0px 0px);
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-body {
+  flex-grow: 1;
+
+  .mat-sidenav-content {
+    @include position(absolute, null 0px null 0px);
+  }
+}
+
+.side-nav {
+  width: 200px;
+}
+
+.main-content {
+  @include position(absolute, null 0px null 0px);
+}

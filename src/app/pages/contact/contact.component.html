@@ -1,0 +1,8 @@
+<h1>Contact</h1>
+<jl-contact-form
+  (formSubmit)="submitForm($event)"
+  [submitPending]="messageSending$ | async"
+  [submitSuccessful]="messageSent$ | async"
+  [submitError]="messageSendError$ | async"
+>
+</jl-contact-form>

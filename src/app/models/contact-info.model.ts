@@ -1,5 +1,5 @@
-export class ContactInfoModel {
-  from: string;
-  email: string;
-  message: string;
+export class ContactInfo {
+  from = '';
+  email = '';
+  message = '';
 }

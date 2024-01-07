@@ -1,0 +1,8 @@
+<h1>Works</h1>
+<mat-progress-bar
+  mode="indeterminate"
+  *ngIf="worksLoading$ | async; else works"
+></mat-progress-bar>
+<ng-template #works>
+  <jl-project-grid [projectList]="works$ | async"></jl-project-grid>
+</ng-template>

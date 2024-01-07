@@ -1,24 +1,15 @@
-<nav class="main-nav-mobile">
-  <ul class="main-nav-mobile__list">
-    <li class="main-nav-mobile__list-item">
-      <a class="nav-item" routerLink="/" (click)="closeSidenav()" mat-button>
-        <mat-icon>home</mat-icon> Home
-      </a>
-    </li>
-    <li class="main-nav-mobile__list-item">
-      <a class="nav-item" routerLink="/works" (click)="closeSidenav()" mat-button>
-        <mat-icon>work</mat-icon> Works
-      </a>
-    </li>
-    <li class="main-nav-mobile__list-item">
-      <a class="nav-item" routerLink="/skills" (click)="closeSidenav()" mat-button>
-        <mat-icon>format_align_left</mat-icon> Skills
-      </a>
-    </li>
-    <li class="main-nav-mobile__list-item">
-      <a class="nav-item" routerLink="/contact" (click)="closeSidenav()" mat-button>
-        <mat-icon>message</mat-icon> Contact
-      </a>
-    </li>
-  </ul>
-</nav>
+<mat-nav-list class="main-nav-mobile">
+  @for (item of navItems; track item.path) {
+    <a
+      mat-list-item
+      [routerLink]="item.path"
+      routerLinkActive="mdc-list-item--activated"
+      (click)="closeSidenav()"
+    >
+      <span class="main-nav-mobile__list-item">
+        <mat-icon class="main-nav-mobile__item-icon">{{ item.icon }}</mat-icon>
+        {{ item.label }}
+      </span>
+    </a>
+  }
+</mat-nav-list>

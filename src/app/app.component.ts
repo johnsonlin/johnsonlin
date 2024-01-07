@@ -1,33 +1,41 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSidenav } from '@angular/material/sidenav';
+import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
-import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, Observable } from 'rxjs';
 
-import { CloseSidenav } from './actions/ui';
-import { RECAPTCHA_KEY } from './app-constants';
+import { ComponentsModule } from './components/components.module';
+import { MaterialModule } from './material/material.module';
+import { UiActions } from './ngrx/ui/ui.actions';
+import { selectSideNavOpened, State } from './ngrx/ui/ui.reducer';
 
 @Component({
-  selector: 'app-root',
+  selector: 'jl-root',
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, MaterialModule, ComponentsModule],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit, OnDestroy {
-  @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
-  sideNavOpened$: Observable<boolean>;
-  destroy$ = new Subject<boolean>();
-  reCaptchaKey = RECAPTCHA_KEY;
+export class AppComponent implements OnInit {
+  @ViewChild('sidenav', { static: true }) sidenav!: MatSidenav;
+  sideNavOpened$!: Observable<boolean>;
+  private destroyRef = inject(DestroyRef);
 
   constructor(private store: Store<any>) {}
 
   ngOnInit() {
-    this.sideNavOpened$ = this.store.select('ui').pipe(map(state => state.sideNavOpened));
+    this.sideNavOpened$ = this.store.select(selectSideNavOpened);
 
     this.sideNavOpened$
-      .pipe(
-        distinctUntilChanged(),
-        takeUntil(this.destroy$)
-      )
+      .pipe(distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
       .subscribe((opened) => {
         if (opened) {
           this.sidenav.open();
@@ -37,12 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
-  }
-
   closeSidenav() {
-    this.store.dispatch(new CloseSidenav());
+    this.store.dispatch(UiActions.closeSidenav());
   }
 }

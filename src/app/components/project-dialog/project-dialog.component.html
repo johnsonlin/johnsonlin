@@ -1,7 +1,11 @@
-<div>
-  <button class="project-dialog__close" mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
-  <h1 mat-dialog-title [innerHTML]="projectModel.title"></h1>
-</div>
-<mat-dialog-content>
-  <div class="project-dialog__content" [innerHTML]="projectModel.content"></div>
-</mat-dialog-content>
+<section class="project-dialog">
+  <h1 class="project-dialog__title" mat-dialog-title [innerHTML]="projectModel.title"></h1>
+  <div class="project-dialog__close">
+    <button mat-icon-button [mat-dialog-close]="true"><mat-icon>close</mat-icon></button>
+  </div>
+
+  <mat-dialog-content>
+    <div class="project-dialog__content" [innerHTML]="projectModel.content"></div>
+  </mat-dialog-content>
+</section>
+

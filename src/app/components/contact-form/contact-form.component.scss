@@ -1,8 +1,9 @@
-@import '~@angular/material/theming';
-@import '../../../sass/variables';
-@import '../../../sass/mixins';
+@use "@angular/material" as mat;
+@import "variables";
+@import "mixins";
 
-mat-form-field, mat-progress-bar {
+mat-form-field,
+mat-progress-bar {
   width: 100%;
 
   @include screenAboveMobile {
@@ -12,11 +13,11 @@ mat-form-field, mat-progress-bar {
 
 .contact-form {
   &__error {
-    color: map-get($mat-red, 500);
+    color: map-get(mat.$red-palette, 500);
   }
 
   &__successful {
-    color: map-get($mat-green, 500);
+    color: map-get(mat.$green-palette, 500);
   }
 
   &__tick {

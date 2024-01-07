@@ -1,20 +1,19 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { RECAPTCHA_KEY } from '../../app-constants';
-import { ContactInfoModel } from '../../models/contact-info.model';
+import { RECAPTCHA_KEY } from '../../app.constants';
+import { ContactInfo } from '../../models/contact-info.model';
 
 @Component({
-  selector: 'app-contact-form',
+  selector: 'jl-contact-form',
   templateUrl: './contact-form.component.html',
-  styleUrls: ['./contact-form.component.scss']
+  styleUrls: ['./contact-form.component.scss'],
 })
-
 export class ContactFormComponent {
-  contactInfo: ContactInfoModel = new ContactInfoModel();
+  contactInfo: ContactInfo = new ContactInfo();
   reCaptchaKey = RECAPTCHA_KEY;
-  @Input() submitPending = false;
-  @Input() submitSuccessful = false;
+  @Input() submitPending: boolean | null = false;
+  @Input() submitSuccessful: boolean | null = false;
   @Input() submitError: any;
   @Output() formSubmit = new EventEmitter();
 

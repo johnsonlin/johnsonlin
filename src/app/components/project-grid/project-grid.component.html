@@ -1,5 +1,13 @@
-<mat-grid-list [cols]="gridSettings.cols" rowHeight="200px" *ngIf="projectList.length">
-  <mat-grid-tile *ngFor="let project of projectList">
-    <app-project-tile [project]="project" (click)="showProjectDetails(project)"></app-project-tile>
+<mat-grid-list
+  class="project-grid"
+  [cols]="gridSettings.cols"
+  rowHeight="200px"
+  *ngIf="projectList?.length"
+>
+  <mat-grid-tile class="project-grid__tile" *ngFor="let project of projectList">
+    <jl-project-tile
+      [project]="project"
+      (click)="showProjectDetails(project)"
+    ></jl-project-tile>
   </mat-grid-tile>
 </mat-grid-list>

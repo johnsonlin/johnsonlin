@@ -1,23 +1,14 @@
-@import '~@angular/material/theming';
-@import '../../../sass/variables';
-@import '../../../sass/mixins';
+@use "@angular/material" as mat;
+@import "variables";
+@import "mixins";
 
 .main-nav-mobile {
-  &__list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  &__list-item {
+    display: flex;
+    align-items: center;
   }
 
-  &__list-item {
-    &:not(last-child) {
-      border-bottom: 1px solid map-get($mat-grey, 500);
-    }
-
-    .nav-item {
-      width: 100%;
-      padding: 0 16px;
-      text-align: left;
-    }
+  &__item-icon {
+    margin-right: 5px;
   }
 }

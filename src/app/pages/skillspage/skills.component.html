@@ -1,5 +1,0 @@
-<h1>Skills</h1>
-<mat-progress-bar mode="indeterminate" *ngIf="skillsLoading$ | async; else skillsMatrix"></mat-progress-bar>
-<ng-template #skillsMatrix>
-  <app-skills-matrix [skillsets]="skills$ | async"></app-skills-matrix>
-</ng-template>

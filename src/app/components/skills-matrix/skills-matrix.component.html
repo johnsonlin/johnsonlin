@@ -1,6 +1,17 @@
 <div class="skillset-container" *ngIf="skillsets.length">
-  <section class="skillset" *ngFor="let skillset of skillsets">
-    <h2>{{skillset.name}}</h2>
-    <div class="skillset__canvas"></div>
-  </section>
+  @for (skillset of skillsets; track skillset.name) {
+    <section class="skillset">
+      <h2>{{ skillset.name }}</h2>
+      <div class="skillset__canvas">
+        <canvas
+          baseChart
+          [data]="chartDataMap[skillset.name]"
+          [type]="skillset.type"
+          [options]="
+            skillset.type === 'bar' ? chartOptions.bar : chartOptions.radar
+          "
+        ></canvas>
+      </div>
+    </section>
+  }
 </div>

@@ -1,0 +1,76 @@
+<div class="cube-container">
+  <section class="cube" #cube>
+    <div class="cube-side cube-side__intro">
+      <div class="cube-side__content">
+        <h1><small>Hi, I'm</small> Johnson Lin</h1>
+        <p>I'm a frontend engineer in Sydney.</p>
+      </div>
+    </div>
+    <div class="cube-side cube-side__description">
+      <div class="cube-side__content">
+        <p>
+          I'm specialised in frontend technologies and popular JS frameworks
+          such as <a href="https://angular.io/" target="_blank">Angular</a>.
+        </p>
+      </div>
+    </div>
+    <div class="cube-side cube-side__skillset">
+      <div class="cube-side__content">
+        <p>View my <a routerLink="/skills">skillset</a></p>
+      </div>
+    </div>
+    <div class="cube-side cube-side__works">
+      <div class="cube-side__content">
+        <p>View my <a routerLink="/works">works</a></p>
+      </div>
+    </div>
+    <div class="cube-side cube-side__contact">
+      <div class="cube-side__content">
+        <p><a routerLink="/contact">Contact me</a></p>
+      </div>
+    </div>
+    <div class="cube-side cube-side__nothing">
+      <div class="cube-side__content">
+        <p>There's nothing on this side.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="cube-control">
+  <button mat-mini-fab (click)="controlVisible = !controlVisible">
+    <mat-icon>3d_rotation</mat-icon>
+  </button>
+  <button
+    mat-mini-fab
+    class="cube-control__handle cube-control__rotate-up"
+    [ngClass]="{ 'cube-control__handle--visible': controlVisible }"
+    (click)="rotateUp()"
+  >
+    <mat-icon>keyboard_arrow_up</mat-icon>
+  </button>
+  <button
+    mat-mini-fab
+    class="cube-control__handle cube-control__rotate-right"
+    [ngClass]="{ 'cube-control__handle--visible': controlVisible }"
+    (click)="rotateRight()"
+  >
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </button>
+  <button
+    mat-mini-fab
+    class="cube-control__handle cube-control__rotate-down"
+    [ngClass]="{ 'cube-control__handle--visible': controlVisible }"
+    (click)="rotateDown()"
+  >
+    <mat-icon>keyboard_arrow_down</mat-icon>
+  </button>
+  <button
+    mat-mini-fab
+    class="cube-control__handle cube-control__rotate-left"
+    [ngClass]="{ 'cube-control__handle--visible': controlVisible }"
+    (click)="rotateLeft()"
+  >
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
+</div>

@@ -1,20 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { CloseSidenav } from '../../actions/ui';
+import { NAV_ITEMS } from '../../app.constants';
+import { UiActions } from '../../ngrx/ui/ui.actions';
 
 @Component({
-  selector: 'app-mobile-nav-menu',
+  selector: 'jl-mobile-nav-menu',
   templateUrl: './mobile-nav-menu.component.html',
-  styleUrls: ['./mobile-nav-menu.component.scss']
+  styleUrls: ['./mobile-nav-menu.component.scss'],
 })
-export class MobileNavMenuComponent implements OnInit {
-  constructor(private store: Store<any>) { }
+export class MobileNavMenuComponent {
+  navItems = NAV_ITEMS;
 
-  ngOnInit() {
-  }
+  constructor(private store: Store<any>) {}
 
   closeSidenav() {
-    this.store.dispatch(new CloseSidenav());
+    this.store.dispatch(UiActions.closeSidenav());
   }
 }
