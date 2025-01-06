@@ -2,12 +2,16 @@ import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { Work } from '../../models/work.model';
+import { MaterialModule } from '../../material/material.module';
 
 @Component({
   selector: 'jl-project-dialog',
   templateUrl: './project-dialog.component.html',
   styleUrls: ['./project-dialog.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  imports: [
+    MaterialModule,
+  ]
 })
 export class ProjectDialogComponent implements OnInit {
   projectModel!: Work;

@@ -19,10 +19,9 @@ import { selectSideNavOpened, State } from './ngrx/ui/ui.reducer';
 
 @Component({
   selector: 'jl-root',
-  standalone: true,
   imports: [CommonModule, RouterOutlet, MaterialModule, ComponentsModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   @ViewChild('sidenav', { static: true }) sidenav!: MatSidenav;

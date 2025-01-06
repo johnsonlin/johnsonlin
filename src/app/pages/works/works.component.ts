@@ -15,10 +15,9 @@ import {
 
 @Component({
   selector: 'jl-works',
-  standalone: true,
   imports: [CommonModule, MatProgressBarModule, ComponentsModule],
   templateUrl: './works.component.html',
-  styleUrl: './works.component.scss',
+  styleUrls: ['./works.component.scss'],
 })
 export class WorksComponent implements OnInit {
   worksLoading$!: Observable<boolean>;

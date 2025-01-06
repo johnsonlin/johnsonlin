@@ -1,23 +1,25 @@
+@use 'variables';
+
 @mixin screenAboveMobile {
-  @media screen and (min-width: $mobile-break-point + 1) {
+  @media screen and (min-width: variables.$mobile-break-point + 1) {
     @content;
   }
 }
 
 @mixin screenAboveTablet {
-  @media screen and (min-width: $tablet-break-point + 1) {
+  @media screen and (min-width: variables.$tablet-break-point + 1) {
     @content;
   }
 }
 
 @mixin screenTablet {
-  @media screen and (min-width: $mobile-break-point + 1) and (max-width: $tablet-break-point) {
+  @media screen and (min-width: variables.$mobile-break-point + 1) and (max-width: variables.$tablet-break-point) {
     @content;
   }
 }
 
 @mixin screenMobile {
-  @media screen and (max-width: $mobile-break-point) {
+  @media screen and (max-width: variables.$mobile-break-point) {
     @content;
   }
 }

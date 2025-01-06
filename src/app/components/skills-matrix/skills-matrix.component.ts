@@ -1,16 +1,21 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import Chart, {
+import { Component, Input, OnInit } from '@angular/core';
+import {
   ChartData,
   ChartOptions,
   ChartType,
-  ScaleChartOptions,
   ScaleOptions,
 } from 'chart.js/auto';
+import { BaseChartDirective } from 'ng2-charts';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'jl-skills-matrix',
   templateUrl: './skills-matrix.component.html',
   styleUrls: ['./skills-matrix.component.scss'],
+  imports: [
+    BaseChartDirective,
+    NgIf,
+  ],
 })
 export class SkillsMatrixComponent implements OnInit {
   @Input() skillsets: {
@@ -21,8 +26,6 @@ export class SkillsMatrixComponent implements OnInit {
 
   chartOptions!: { [key in 'bar' | 'radar']: ChartOptions };
   chartDataMap!: { [key: string]: ChartData };
-
-  constructor(private elm: ElementRef) {}
 
   ngOnInit() {
     const commonOptions: ChartOptions = {
@@ -70,55 +73,6 @@ export class SkillsMatrixComponent implements OnInit {
       }),
       {},
     );
-  }
-
-  drawChart(canvas: any, chartType: ChartType, rawData: any) {
-    const data = this.transformChartData(rawData.data);
-    const ticks = {
-      display: false,
-      beginAtZero: true,
-      stepSize: 1,
-      max: 5,
-    };
-    const pointLabels = {
-      fontFamily: 'Roboto, Arial, sans-serif',
-      fontSize: 14,
-    };
-    let scaleOptions: ChartOptions;
-
-    switch (chartType) {
-      case 'bar':
-        scaleOptions = {
-          indexAxis: 'y',
-          scales: {
-            /*xAxes: [{
-              ticks,
-              pointLabels
-            }]*/
-          },
-        };
-        break;
-
-      default:
-        scaleOptions = {
-          /*scale: {
-            ticks,
-            pointLabels
-          }*/
-        };
-        break;
-    }
-
-    const chart = new Chart(canvas, {
-      type: chartType,
-      data,
-      options: {
-        /* legend: {
-          display: false
-        },*/
-        ...scaleOptions,
-      },
-    });
   }
 
   transformChartData(rawData: any): ChartData {

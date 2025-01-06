@@ -1,11 +1,6 @@
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-
-@import "variables";
-@import "frameworks";
-@import "theme";
-@import "typography";
-@import "mixins";
-@import "components/cube";
+@forward "variables";
+@use "theme";
+@use 'typography';
 
 * {
   box-sizing: border-box;
@@ -29,7 +24,11 @@ main {
 }
 
 jl-root {
-  @include position(absolute, 0px 0px 0px 0px);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -39,7 +38,9 @@ jl-root {
   flex-grow: 1;
 
   .mat-sidenav-content {
-    @include position(absolute, null 0px null 0px);
+    position: absolute;
+    right: 0;
+    left: 0;
   }
 }
 
@@ -48,5 +49,7 @@ jl-root {
 }
 
 .main-content {
-  @include position(absolute, null 0px null 0px);
+  position: absolute;
+  right: 0;
+  left: 0;
 }

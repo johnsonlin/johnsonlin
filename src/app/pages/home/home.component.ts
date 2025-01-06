@@ -13,15 +13,13 @@ import { fromEvent, switchMap } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { MaterialModule } from '../../material/material.module';
-
-declare const Modernizr: any;
+import { Platform } from '@angular/cdk/platform';
 
 @Component({
   selector: 'jl-home',
-  standalone: true,
   imports: [CommonModule, MaterialModule, RouterLink],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   @ViewChild('cube', { static: true }) cube!: ElementRef;
@@ -33,12 +31,10 @@ export class HomeComponent implements OnInit {
   controlVisible = false;
   destroyRef = inject(DestroyRef);
 
-  constructor(private elm: ElementRef) {}
+  constructor(private platform: Platform, private elm: ElementRef) {}
 
   ngOnInit() {
-    if (Modernizr.csstransforms3d && Modernizr.preserve3d) {
-      this.cubeTransform();
-    }
+    this.cubeTransform();
   }
 
   rotateUp() {
@@ -65,7 +61,10 @@ export class HomeComponent implements OnInit {
     this.cube.nativeElement.style.transform = `rotateX(${this.rotateX}deg) rotateY(${this.rotateY}deg) rotateZ(${this.rotateZ}deg)`;
 
     this.bindMouseEvents();
-    this.bindTouchEvents();
+
+    if (this.platform.ANDROID || this.platform.IOS) {
+      this.bindTouchEvents();
+    }
   }
 
   private bindMouseEvents() {
@@ -92,30 +91,28 @@ export class HomeComponent implements OnInit {
   }
 
   private bindTouchEvents() {
-    if (Modernizr.touchevents) {
-      const touchstart$ = fromEvent<TouchEvent>(
-        this.elm.nativeElement,
-        'touchstart',
-      ).pipe(takeUntilDestroyed(this.destroyRef));
-      const touchmove$ = fromEvent<TouchEvent>(
-        this.elm.nativeElement,
-        'touchmove',
-      ).pipe(takeUntilDestroyed(this.destroyRef));
-      const touchend$ = fromEvent<TouchEvent>(
-        this.elm.nativeElement,
-        'touchend',
-      ).pipe(takeUntilDestroyed(this.destroyRef));
+    const touchstart$ = fromEvent<TouchEvent>(
+      this.elm.nativeElement,
+      'touchstart',
+    ).pipe(takeUntilDestroyed(this.destroyRef));
+    const touchmove$ = fromEvent<TouchEvent>(
+      this.elm.nativeElement,
+      'touchmove',
+    ).pipe(takeUntilDestroyed(this.destroyRef));
+    const touchend$ = fromEvent<TouchEvent>(
+      this.elm.nativeElement,
+      'touchend',
+    ).pipe(takeUntilDestroyed(this.destroyRef));
 
-      touchstart$.subscribe((e: TouchEvent) => {
-        e.stopPropagation();
-        this.moveStart(e.touches[0].clientX, e.touches[0].clientY);
-      });
-      touchmove$.subscribe((e: TouchEvent) => {
-        e.stopPropagation();
-        this.rotateCube(e.touches[0].clientX, e.touches[0].clientY);
-      });
-      touchend$.subscribe(this.moveEnd.bind(this));
-    }
+    touchstart$.subscribe((e: TouchEvent) => {
+      e.stopPropagation();
+      this.moveStart(e.touches[0].clientX, e.touches[0].clientY);
+    });
+    touchmove$.subscribe((e: TouchEvent) => {
+      e.stopPropagation();
+      this.rotateCube(e.touches[0].clientX, e.touches[0].clientY);
+    });
+    touchend$.subscribe(this.moveEnd.bind(this));
   }
 
   private rotateCube(x: number, y: number) {

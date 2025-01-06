@@ -1,0 +1,214 @@
+@use 'sass:math';
+@use 'mixins' as mixins;
+
+$cube-size-desktop: 600px;
+$cube-size-tablet: 400px;
+$cube-size-mobile: 200px;
+$cube-control-size: 40px;
+$intro-rotation: rotateY(0deg);
+$description-rotation: rotateX(-90deg);
+$skillset-rotation: rotateX(-90deg) rotateY(-90deg);
+$works-rotation: rotateX(-90deg) rotateY(90deg);
+$contact-rotation: rotateX(90deg) rotateZ(-180deg);
+$nothing-rotation: rotateX(180deg);
+
+.cube-container {
+  position: relative;
+}
+
+.cube-control {
+  display: none;
+}
+
+.cube-side {
+  width: $cube-size-mobile;
+  height: $cube-size-mobile;
+  align-items: center;
+  display: flex;
+  border: 1px solid black;
+  background: white;
+  border-collapse: collapse;
+  //opacity: 0.9;
+  padding: 10px;
+
+  @include mixins.screenAboveMobile {
+    padding: 20px;
+  }
+
+  &__content {
+    flex-grow: 1;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__intro {
+    text-align: right;
+    align-items: flex-end;
+
+  }
+
+  &__nothing {
+    display: none;
+  }
+}
+
+.cube-container {
+  width: $cube-size-mobile;
+  height: $cube-size-mobile;
+  cursor: pointer;
+  margin: auto;
+  padding: 50px 0;
+  perspective: 1750px;
+  user-select: none;
+
+  @include mixins.screenAboveTablet {
+    width: $cube-size-desktop;
+    height: $cube-size-desktop;
+    margin-top: 130px;
+  }
+  @include mixins.screenTablet {
+    width: $cube-size-tablet;
+    height: $cube-size-tablet;
+  }
+}
+
+.cube-control {
+  width: $cube-control-size;
+  height: $cube-control-size;
+  display: block;
+  margin: ($cube-control-size + 10px) 0 $cube-control-size ($cube-control-size - 10px);
+  position: relative;
+
+  &__handle {
+    opacity: 0;
+    transition: opacity .3s ease;
+    pointer-events: none;
+
+    &--visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  &__rotate-up {
+    position: absolute;
+    bottom: calc(100% + 5px);
+    left: 0;
+  }
+
+  &__rotate-right {
+    position: absolute;
+    top: 0;
+    left: calc(100% + 5px);
+  }
+
+  &__rotate-down {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+  }
+
+  &__rotate-left {
+    position: absolute;
+    top: 0;
+    right: calc(100% + 5px);
+  }
+}
+
+.cube {
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform .3s ease;
+  width: 100%;
+
+  &--moving {
+    transition: none;
+  }
+}
+
+.cube-side {
+  backface-visibility: hidden;
+  position: absolute;
+  @include mixins.screenAboveTablet {
+    width: $cube-size-desktop;
+    height: $cube-size-desktop;
+  }
+  @include mixins.screenTablet {
+    width: $cube-size-tablet;
+    height: $cube-size-tablet;
+  }
+
+  &__intro {
+    transform: $intro-rotation translateZ(math.div($cube-size-mobile, 2));
+
+    @include mixins.screenTablet {
+      transform: $intro-rotation translateZ(math.div($cube-size-tablet, 2));
+    }
+    @include mixins.screenAboveTablet {
+      transform: $intro-rotation translateZ(math.div($cube-size-desktop, 2));
+    }
+  }
+
+  &__description {
+    transform: $description-rotation translateZ(math.div($cube-size-mobile, 2));
+
+    @include mixins.screenTablet {
+      transform: $description-rotation translateZ(math.div($cube-size-tablet, 2));
+    }
+    @include mixins.screenAboveTablet {
+      transform: $description-rotation translateZ(math.div($cube-size-desktop, 2));
+    }
+  }
+
+  &__skillset {
+    transform: $skillset-rotation translateZ(math.div($cube-size-mobile, 2));
+    text-align: center;
+
+    @include mixins.screenTablet {
+      transform: $skillset-rotation translateZ(math.div($cube-size-tablet, 2));
+    }
+    @include mixins.screenAboveTablet {
+      transform: $skillset-rotation translateZ(math.div($cube-size-desktop, 2));
+    }
+  }
+
+  &__works {
+    transform: $works-rotation translateZ(math.div($cube-size-mobile, 2));
+    text-align: center;
+
+    @include mixins.screenTablet {
+      transform: $works-rotation translateZ(math.div($cube-size-tablet, 2));
+    }
+    @include mixins.screenAboveTablet {
+      transform: $works-rotation translateZ(math.div($cube-size-desktop, 2));
+    }
+  }
+
+  &__contact {
+    transform: $contact-rotation translateZ(math.div($cube-size-mobile, 2));
+    text-align: center;
+
+    @include mixins.screenTablet {
+      transform: $contact-rotation translateZ(math.div($cube-size-tablet, 2));
+    }
+    @include mixins.screenAboveTablet {
+      transform: $contact-rotation translateZ(math.div($cube-size-desktop, 2));
+    }
+  }
+
+  &__nothing {
+    transform: $nothing-rotation translateZ(math.div($cube-size-mobile, 2));
+    display: flex;
+    text-align: center;
+
+    @include mixins.screenTablet {
+      transform: $nothing-rotation translateZ(math.div($cube-size-tablet, 2));
+    }
+    @include mixins.screenAboveTablet {
+      transform: $nothing-rotation translateZ(math.div($cube-size-desktop, 2));
+    }
+  }
+}

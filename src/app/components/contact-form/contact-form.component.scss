@@ -1,23 +1,23 @@
+@use 'sass:map';
 @use "@angular/material" as mat;
-@import "variables";
-@import "mixins";
+@use "mixins" as mixins;
 
 mat-form-field,
 mat-progress-bar {
   width: 100%;
 
-  @include screenAboveMobile {
+  @include mixins.screenAboveMobile {
     width: 50%;
   }
 }
 
 .contact-form {
   &__error {
-    color: map-get(mat.$red-palette, 500);
+    color: map.get(mat.$m2-red-palette, 500);
   }
 
   &__successful {
-    color: map-get(mat.$green-palette, 500);
+    color: map.get(mat.$m2-green-palette, 500);
   }
 
   &__tick {

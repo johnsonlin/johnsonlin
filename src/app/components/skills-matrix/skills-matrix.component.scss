@@ -1,7 +1,7 @@
-@import "variables";
-@import "mixins";
+@use "variables";
+@use "mixins" as mixins;
 
-@include screenAboveMobile {
+@include mixins.screenAboveMobile {
   .skillset-container {
     display: flex;
     flex-wrap: wrap;

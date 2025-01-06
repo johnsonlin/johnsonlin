@@ -1,9 +1,9 @@
+@use 'sass:map';
 @use "@angular/material" as mat;
-@import "variables";
-@import "mixins";
+@use "mixins" as mixins;
 
 .main-nav {
-  background: map-get(mat.$cyan-palette, 500);
+  background: map.get(mat.$m2-cyan-palette, 500);
   padding: 8px 16px;
   display: flex;
   flex: 0 0 auto;
@@ -19,7 +19,7 @@
     color: #fff;
   }
 
-  @include screenAboveMobile {
+  @include mixins.screenAboveMobile {
     .nav-item {
       display: inline-flex;
     }

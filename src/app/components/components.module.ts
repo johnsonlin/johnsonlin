@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NgChartsModule } from 'ng2-charts';
 
 import { MaterialModule } from '../material/material.module';
 
@@ -15,7 +14,12 @@ import { ProjectTileComponent } from './project-tile/project-tile.component';
 import { SkillsMatrixComponent } from './skills-matrix/skills-matrix.component';
 
 @NgModule({
-  declarations: [
+  imports: [
+    CommonModule,
+    MaterialModule,
+    FormsModule,
+    RouterLink,
+    RouterLinkActive,
     ContactFormComponent,
     MobileNavMenuComponent,
     NavMenuComponent,
@@ -23,14 +27,6 @@ import { SkillsMatrixComponent } from './skills-matrix/skills-matrix.component';
     ProjectGridComponent,
     ProjectTileComponent,
     SkillsMatrixComponent,
-  ],
-  imports: [
-    CommonModule,
-    MaterialModule,
-    FormsModule,
-    RouterLink,
-    RouterLinkActive,
-    NgChartsModule,
   ],
   exports: [
     ContactFormComponent,

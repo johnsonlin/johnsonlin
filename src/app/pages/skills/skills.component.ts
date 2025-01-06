@@ -16,10 +16,9 @@ import {
 
 @Component({
   selector: 'jl-skills',
-  standalone: true,
   imports: [CommonModule, MaterialModule, ComponentsModule],
   templateUrl: './skills.component.html',
-  styleUrl: './skills.component.scss',
+  styleUrls: ['./skills.component.scss'],
 })
 export class SkillsComponent implements OnInit {
   skillsetConfig: { name: string; type: ChartType }[] = [

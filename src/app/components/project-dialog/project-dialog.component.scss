@@ -1,15 +1,14 @@
-@import "variables";
-@import "mixins";
+@use "variables";
 
 .project-dialog {
   --mdc-dialog-subhead-size: 20px;
   --mdc-dialog-subhead-line-height: 1;
-  --mdc-dialog-subhead-font: #{$font-family};
+  --mdc-dialog-subhead-font: #{variables.$font-family};
   --mdc-dialog-subhead-tracking: normal;
   --mdc-dialog-supporting-text-size: 16px;
   --mdc-dialog-supporting-text-weight: normal;
   --mdc-dialog-supporting-text-line-height: 1;
-  --mdc-dialog-supporting-text-font: #{$font-family};
+  --mdc-dialog-supporting-text-font: #{variables.$font-family};
   --mdc-dialog-supporting-text-tracking: normal;
   position: relative;
 

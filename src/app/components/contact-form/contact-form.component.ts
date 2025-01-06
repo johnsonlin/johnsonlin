@@ -1,13 +1,22 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 import { RECAPTCHA_KEY } from '../../app.constants';
 import { ContactInfo } from '../../models/contact-info.model';
+import { NgIf } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MaterialModule } from '../../material/material.module';
 
 @Component({
   selector: 'jl-contact-form',
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.scss'],
+  imports: [
+    NgIf,
+    MatIcon,
+    FormsModule,
+    MaterialModule,
+  ],
 })
 export class ContactFormComponent {
   contactInfo: ContactInfo = new ContactInfo();

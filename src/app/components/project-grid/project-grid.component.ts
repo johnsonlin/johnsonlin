@@ -11,6 +11,9 @@ import {
 } from '../../app.constants';
 import { Work } from '../../models/work.model';
 import { ProjectDialogComponent } from '../project-dialog/project-dialog.component';
+import { ProjectTileComponent } from '../project-tile/project-tile.component';
+import { MaterialModule } from '../../material/material.module';
+import { NgForOf, NgIf } from '@angular/common';
 
 declare const window: Window;
 
@@ -18,6 +21,12 @@ declare const window: Window;
   selector: 'jl-project-grid',
   templateUrl: './project-grid.component.html',
   styleUrls: ['./project-grid.component.scss'],
+  imports: [
+    MaterialModule,
+    ProjectTileComponent,
+    NgForOf,
+    NgIf,
+  ],
 })
 export class ProjectGridComponent implements OnInit {
   @Input() projectList: Work[] | null = [];
