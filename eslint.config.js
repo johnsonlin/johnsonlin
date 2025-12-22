@@ -1,123 +1,104 @@
 // @ts-check
-const eslint = require("@eslint/js");
-const tseslint = require("typescript-eslint");
-const angular = require("angular-eslint");
+const eslint = require('@eslint/js');
+const { defineConfig } = require('eslint/config');
+const tseslint = require('typescript-eslint');
+const angular = require('angular-eslint');
+const importPlugin = require('eslint-plugin-import');
 
-module.exports = tseslint.config(
+module.exports = defineConfig([
   {
-    files: ["**/*.ts"],
+    files: ['**/*.ts'],
     extends: [
       eslint.configs.recommended,
-      ...tseslint.configs.recommended,
-      ...tseslint.configs.stylistic,
-      ...angular.configs.tsRecommended,
+      tseslint.configs.recommended,
+      tseslint.configs.stylistic,
+      angular.configs.tsRecommended,
+      importPlugin.flatConfigs.typescript,
     ],
     processor: angular.processInlineTemplates,
     rules: {
-      "@angular-eslint/directive-selector": [
-        "error",
+      '@angular-eslint/directive-selector': [
+        'error',
         {
-          type: "attribute",
-          prefix: "jl",
-          style: "camelCase",
+          type: 'attribute',
+          prefix: 'jl',
+          style: 'camelCase',
         },
       ],
-      "@angular-eslint/component-selector": [
-        "error",
+      '@angular-eslint/component-selector': [
+        'error',
         {
-          type: "element",
-          prefix: "jl",
-          style: "kebab-case",
+          type: 'element',
+          prefix: 'jl',
+          style: 'kebab-case',
         },
       ],
-      "@typescript-eslint/no-explicit-any": "warn",
-      "comma-dangle": [
-        "error",
-        "always-multiline"
-      ],
-      "space-in-parens": [
-        "error",
-        "never"
-      ],
-      "space-before-function-paren": [
-        "error",
+      'comma-dangle': ['error', 'always-multiline'],
+      'space-in-parens': ['error', 'never'],
+      'space-before-function-paren': [
+        'error',
         {
-          "anonymous": "never",
-          "asyncArrow": "always",
-          "named": "never"
-        }
+          anonymous: 'never',
+          asyncArrow: 'always',
+          named: 'never',
+        },
       ],
-      "padded-blocks": [
-        "error",
+      'padded-blocks': [
+        'error',
         {
-          "blocks": "never",
-          "classes": "never",
-          "switches": "never"
-        }
+          blocks: 'never',
+          classes: 'never',
+          switches: 'never',
+        },
       ],
-      "lines-between-class-members": [
-        "error",
-        "always",
+      'lines-between-class-members': [
+        'error',
+        'always',
         {
-          "exceptAfterSingleLine": true
-        }
+          exceptAfterSingleLine: true,
+        },
       ],
-      "padding-line-between-statements": [
-        "error",
+      'padding-line-between-statements': [
+        'error',
         {
-          "blankLine": "always",
-          "prev": [
-            "case",
-            "default"
-          ],
-          "next": "*"
-        }
+          blankLine: 'always',
+          prev: ['case', 'default'],
+          next: '*',
+        },
       ],
-      "newline-before-return": "error",
-      "newline-after-var": [
-        "error",
-        "always"
-      ],
-      "sort-imports": [
-        "error",
+      'newline-before-return': 'error',
+      'newline-after-var': ['error', 'always'],
+      'sort-imports': [
+        'error',
         {
-          "ignoreCase": true,
-          "ignoreDeclarationSort": true,
-          "allowSeparatedGroups": true
-        }
+          ignoreCase: true,
+          ignoreDeclarationSort: true,
+          allowSeparatedGroups: true,
+        },
       ],
-      "import/order": [
-        "error",
+      'import/order': [
+        'error',
         {
-          "groups": [
-            "builtin",
-            "external",
-            "parent",
-            "sibling",
-            "index"
-          ],
-          "pathGroups": [
+          groups: ['builtin', 'external', 'parent', 'sibling', 'index'],
+          pathGroups: [
             {
-              "pattern": "@**/**",
-              "group": "builtin",
-              "position": "after"
-            }
+              pattern: '@**/**',
+              group: 'builtin',
+              position: 'after',
+            },
           ],
-          "newlines-between": "always",
-          "alphabetize": {
-            "order": "asc",
-            "caseInsensitive": true
-          }
-        }
-      ]
+          'newlines-between': 'always',
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+        },
+      ],
     },
   },
   {
-    files: ["**/*.html"],
-    extends: [
-      ...angular.configs.templateRecommended,
-      ...angular.configs.templateAccessibility,
-    ],
+    files: ['**/*.html'],
+    extends: [angular.configs.templateRecommended, angular.configs.templateAccessibility],
     rules: {},
-  }
-);
+  },
+]);

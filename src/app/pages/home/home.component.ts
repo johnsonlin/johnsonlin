@@ -1,27 +1,23 @@
+import { Platform } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  DestroyRef,
-  ElementRef,
-  inject,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, DestroyRef, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { fromEvent, switchMap } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { MaterialModule } from '../../material/material.module';
-import { Platform } from '@angular/cdk/platform';
-
 @Component({
   selector: 'jl-home',
-  imports: [CommonModule, MaterialModule, RouterLink],
+  imports: [CommonModule, RouterLink, MatIconModule, MatButtonModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  private platform = inject(Platform);
+  private elm = inject(ElementRef);
+
   @ViewChild('cube', { static: true }) cube!: ElementRef;
   rotateX = 58;
   rotateY = 0;
@@ -30,8 +26,6 @@ export class HomeComponent implements OnInit {
   mouseStartY = 0;
   controlVisible = false;
   destroyRef = inject(DestroyRef);
-
-  constructor(private platform: Platform, private elm: ElementRef) {}
 
   ngOnInit() {
     this.cubeTransform();
@@ -68,18 +62,15 @@ export class HomeComponent implements OnInit {
   }
 
   private bindMouseEvents() {
-    const mousedown$ = fromEvent<MouseEvent>(
-      this.elm.nativeElement,
-      'mousedown',
-    ).pipe(takeUntilDestroyed(this.destroyRef));
-    const mousemove$ = fromEvent<MouseEvent>(
-      this.elm.nativeElement,
-      'mousemove',
-    ).pipe(takeUntilDestroyed(this.destroyRef));
-    const mouseup$ = fromEvent<MouseEvent>(
-      this.elm.nativeElement,
-      'mouseup',
-    ).pipe(takeUntilDestroyed(this.destroyRef));
+    const mousedown$ = fromEvent<MouseEvent>(this.elm.nativeElement, 'mousedown').pipe(
+      takeUntilDestroyed(this.destroyRef),
+    );
+    const mousemove$ = fromEvent<MouseEvent>(this.elm.nativeElement, 'mousemove').pipe(
+      takeUntilDestroyed(this.destroyRef),
+    );
+    const mouseup$ = fromEvent<MouseEvent>(this.elm.nativeElement, 'mouseup').pipe(
+      takeUntilDestroyed(this.destroyRef),
+    );
     const mousedrag$ = mousedown$.pipe(
       switchMap(() => mousemove$.pipe(takeUntil(mouseup$))),
       takeUntilDestroyed(this.destroyRef),
@@ -91,18 +82,15 @@ export class HomeComponent implements OnInit {
   }
 
   private bindTouchEvents() {
-    const touchstart$ = fromEvent<TouchEvent>(
-      this.elm.nativeElement,
-      'touchstart',
-    ).pipe(takeUntilDestroyed(this.destroyRef));
-    const touchmove$ = fromEvent<TouchEvent>(
-      this.elm.nativeElement,
-      'touchmove',
-    ).pipe(takeUntilDestroyed(this.destroyRef));
-    const touchend$ = fromEvent<TouchEvent>(
-      this.elm.nativeElement,
-      'touchend',
-    ).pipe(takeUntilDestroyed(this.destroyRef));
+    const touchstart$ = fromEvent<TouchEvent>(this.elm.nativeElement, 'touchstart').pipe(
+      takeUntilDestroyed(this.destroyRef),
+    );
+    const touchmove$ = fromEvent<TouchEvent>(this.elm.nativeElement, 'touchmove').pipe(
+      takeUntilDestroyed(this.destroyRef),
+    );
+    const touchend$ = fromEvent<TouchEvent>(this.elm.nativeElement, 'touchend').pipe(
+      takeUntilDestroyed(this.destroyRef),
+    );
 
     touchstart$.subscribe((e: TouchEvent) => {
       e.stopPropagation();

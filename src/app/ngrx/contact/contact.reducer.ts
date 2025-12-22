@@ -1,7 +1,5 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 
-import { selectWorksError } from '../work/work.reducer';
-
 import { ContactActions } from './contact.actions';
 
 export const contactFeatureKey = 'contact';
@@ -9,7 +7,7 @@ export const contactFeatureKey = 'contact';
 export interface State {
   messageSending: boolean;
   messageSent: boolean;
-  messageError: unknown;
+  messageError: string | null;
 }
 
 export const initialState: State = {
@@ -43,20 +41,10 @@ export const contactFeature = createFeature({
   name: contactFeatureKey,
   reducer,
   extraSelectors: ({ selectContactState }) => ({
-    selectMessageSending: createSelector(
-      selectContactState,
-      (state) => state.messageSending,
-    ),
-    selectMessageSent: createSelector(
-      selectContactState,
-      (state) => state.messageSent,
-    ),
-    selectMessageError: createSelector(
-      selectContactState,
-      (state) => state.messageError,
-    ),
+    selectMessageSending: createSelector(selectContactState, (state) => state.messageSending),
+    selectMessageSent: createSelector(selectContactState, (state) => state.messageSent),
+    selectMessageError: createSelector(selectContactState, (state) => state.messageError),
   }),
 });
 
-export const { selectMessageSending, selectMessageSent, selectMessageError } =
-  contactFeature;
+export const { selectMessageSending, selectMessageSent, selectMessageError } = contactFeature;

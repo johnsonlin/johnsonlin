@@ -1,31 +1,26 @@
-import { Component, Input, OnInit } from '@angular/core';
-import {
-  ChartData,
-  ChartOptions,
-  ChartType,
-  ScaleOptions,
-} from 'chart.js/auto';
+import { Component, input, OnInit } from '@angular/core';
+import { ChartData, ChartOptions, ChartType, ScaleOptions } from 'chart.js/auto';
 import { BaseChartDirective } from 'ng2-charts';
-import { NgIf } from '@angular/common';
+
+import { SkillSet } from '../../models/skill.model';
 
 @Component({
   selector: 'jl-skills-matrix',
   templateUrl: './skills-matrix.component.html',
   styleUrls: ['./skills-matrix.component.scss'],
-  imports: [
-    BaseChartDirective,
-    NgIf,
-  ],
+  imports: [BaseChartDirective],
 })
 export class SkillsMatrixComponent implements OnInit {
-  @Input() skillsets: {
-    name: string;
-    type: ChartType;
-    data: unknown;
-  }[] = [];
+  readonly skillSets = input.required<
+    {
+      name: string;
+      type: ChartType;
+      data: SkillSet;
+    }[]
+  >();
 
-  chartOptions!: { [key in 'bar' | 'radar']: ChartOptions };
-  chartDataMap!: { [key: string]: ChartData };
+  chartOptions!: Record<'bar' | 'radar', ChartOptions>;
+  chartDataMap!: Record<string, ChartData>;
 
   ngOnInit() {
     const commonOptions: ChartOptions = {
@@ -66,16 +61,16 @@ export class SkillsMatrixComponent implements OnInit {
         },
       },
     };
-    this.chartDataMap = this.skillsets.reduce(
-      (dataMap, skillset) => ({
+    this.chartDataMap = this.skillSets().reduce(
+      (dataMap, skillSet) => ({
         ...dataMap,
-        [skillset.name]: this.transformChartData(skillset.data),
+        [skillSet.name]: this.transformChartData(skillSet.data),
       }),
       {},
     );
   }
 
-  transformChartData(rawData: any): ChartData {
+  transformChartData(rawData: Record<string, number>): ChartData {
     const skillNames = Object.keys(rawData);
 
     return {

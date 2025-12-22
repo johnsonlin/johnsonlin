@@ -7,7 +7,7 @@ export const WorkActions = createActionGroup({
   events: {
     'Load Works': emptyProps(),
     'Load Works Success': props<{ works: Work[] }>(),
-    'Load Works Failure': props<{ error: unknown }>(),
+    'Load Works Failure': props<{ error: string }>(),
     'Clear Works': emptyProps(),
   },
 });

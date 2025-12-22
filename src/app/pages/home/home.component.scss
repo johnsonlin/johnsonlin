@@ -46,7 +46,6 @@ $nothing-rotation: rotateX(180deg);
   &__intro {
     text-align: right;
     align-items: flex-end;
-
   }
 
   &__nothing {
@@ -83,7 +82,7 @@ $nothing-rotation: rotateX(180deg);
 
   &__handle {
     opacity: 0;
-    transition: opacity .3s ease;
+    transition: opacity 0.3s ease;
     pointer-events: none;
 
     &--visible {
@@ -121,7 +120,7 @@ $nothing-rotation: rotateX(180deg);
   height: 100%;
   position: absolute;
   transform-style: preserve-3d;
-  transition: transform .3s ease;
+  transition: transform 0.3s ease;
   width: 100%;
 
   &--moving {

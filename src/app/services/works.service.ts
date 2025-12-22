@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -10,13 +10,11 @@ import { Work } from '../models/work.model';
   providedIn: 'root',
 })
 export class WorksService {
+  private http = inject(HttpClient);
+
   private worksUrl: string = WORKS_API;
 
-  constructor(private http: HttpClient) {}
-
   getWorks(): Observable<Work[]> {
-    return this.http
-      .get<Work[]>(this.worksUrl)
-      .pipe(map((response: any) => response.posts as Work[]));
+    return this.http.get<{ posts: Work[] }>(this.worksUrl).pipe(map((response) => response.posts));
   }
 }

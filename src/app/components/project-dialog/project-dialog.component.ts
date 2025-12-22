@@ -1,25 +1,22 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 import { Work } from '../../models/work.model';
-import { MaterialModule } from '../../material/material.module';
 
 @Component({
   selector: 'jl-project-dialog',
   templateUrl: './project-dialog.component.html',
   styleUrls: ['./project-dialog.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    MaterialModule,
-  ]
+  imports: [MatDialogModule, MatButtonModule, MatIconModule],
 })
 export class ProjectDialogComponent implements OnInit {
-  projectModel!: Work;
+  dialogRef = inject<MatDialogRef<ProjectDialogComponent>>(MatDialogRef);
+  private data = inject(MAT_DIALOG_DATA);
 
-  constructor(
-    public dialogRef: MatDialogRef<ProjectDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: any,
-  ) {}
+  projectModel!: Work;
 
   ngOnInit() {
     this.projectModel = new Work(this.data);

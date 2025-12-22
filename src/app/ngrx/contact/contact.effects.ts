@@ -17,11 +17,10 @@ export class ContactEffects {
       ofType(ContactActions.sendMessage),
       map(({ data }) => data),
       concatMap(({ from, email, message }) =>
+        /** An EMPTY observable only emits completion. Replace with your own observable API request */
         this.contactService.sendMessage(from, email, message).pipe(
           map(() => ContactActions.sendMessageSuccess()),
-          catchError((error) =>
-            of(ContactActions.sendMessageFailure({ error })),
-          ),
+          catchError((error) => of(ContactActions.sendMessageFailure({ error }))),
         ),
       ),
     );

@@ -1,18 +1,20 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 
+import { SkillSets } from '../../models/skill.model';
+
 import { SkillActions } from './skill.actions';
 
 export const skillFeatureKey = 'skill';
 
 export interface State {
-  skills: any;
+  skills: SkillSets;
   skillsLoading: boolean;
   skillsLoaded: boolean;
-  skillsError: unknown;
+  skillsError: unknown | null;
 }
 
 export const initialState: State = {
-  skills: null,
+  skills: {},
   skillsLoading: false,
   skillsLoaded: false,
   skillsError: null,
@@ -44,17 +46,10 @@ export const skillFeature = createFeature({
   name: skillFeatureKey,
   reducer,
   extraSelectors: ({ selectSkillState }) => ({
-    selectSkillsLoading: createSelector(
-      selectSkillState,
-      (state) => state.skillsLoading,
-    ),
-    selectSkillsError: createSelector(
-      selectSkillState,
-      (state) => state.skillsError,
-    ),
+    selectSkillsLoading: createSelector(selectSkillState, (state) => state.skillsLoading),
+    selectSkillsError: createSelector(selectSkillState, (state) => state.skillsError),
     selectSkills: createSelector(selectSkillState, (state) => state.skills),
   }),
 });
 
-export const { selectSkills, selectSkillsLoading, selectSkillsError } =
-  skillFeature;
+export const { selectSkills, selectSkillsLoading, selectSkillsError } = skillFeature;

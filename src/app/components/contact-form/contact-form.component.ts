@@ -1,29 +1,33 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { RECAPTCHA_KEY } from '../../app.constants';
 import { ContactInfo } from '../../models/contact-info.model';
-import { NgIf } from '@angular/common';
-import { MatIcon } from '@angular/material/icon';
-import { MaterialModule } from '../../material/material.module';
 
 @Component({
   selector: 'jl-contact-form',
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.scss'],
   imports: [
-    NgIf,
     MatIcon,
     FormsModule,
-    MaterialModule,
+    MatProgressBarModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
   ],
 })
 export class ContactFormComponent {
   contactInfo: ContactInfo = new ContactInfo();
   reCaptchaKey = RECAPTCHA_KEY;
-  @Input() submitPending: boolean | null = false;
-  @Input() submitSuccessful: boolean | null = false;
-  @Input() submitError: any;
+  readonly submitPending = input<boolean | null>(false);
+  readonly submitSuccessful = input<boolean | null>(false);
+  readonly submitError = input<string | null>();
   @Output() formSubmit = new EventEmitter();
 
   submitForm(contactForm: NgForm) {

@@ -3,12 +3,12 @@ import { PROJECT_IMAGE_WIDTH } from '../app.constants';
 export class Work {
   global_ID!: string;
   title = '';
-  attachments?: any;
+  attachments?: Record<string, { thumbnails: { medium: string } }>;
   featured_image?: string;
   excerpt = '';
   content = '';
 
-  constructor(project: any) {
+  constructor(project: Work) {
     Object.assign(this, project);
   }
 
@@ -19,6 +19,6 @@ export class Work {
     const attachments = this.attachments || {};
     const firstAttachment = attachments[Object.keys(attachments)[0]];
 
-    return featuredImage || firstAttachment.thumbnails.medium || {};
+    return featuredImage || firstAttachment.thumbnails.medium || null;
   }
 }

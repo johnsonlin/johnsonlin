@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { SEND_MESSAGE_API } from '../app.constants';
 
@@ -7,9 +7,9 @@ import { SEND_MESSAGE_API } from '../app.constants';
   providedIn: 'root',
 })
 export class ContactService {
-  private sendMessageUrl: string = SEND_MESSAGE_API;
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+  private sendMessageUrl: string = SEND_MESSAGE_API;
 
   sendMessage(from: string, email: string, message: string) {
     return this.http.post(this.sendMessageUrl, { from, email, message });

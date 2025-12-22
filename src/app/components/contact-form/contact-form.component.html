@@ -1,55 +1,74 @@
 <form #contactForm="ngForm" name="contactInfo" (ngSubmit)="submitForm(contactForm)">
-  <div class="contact-form__successful" *ngIf="submitSuccessful; else elseBlock">
-    <mat-icon class="contact-form__tick">check_circle</mat-icon>
-    Sent! I'll be in touch shortly.
-    <mat-icon class="contact-form__smile">sentiment_very_satisfied</mat-icon>
-  </div>
-
-  <ng-template #elseBlock>
-    <mat-progress-bar mode="indeterminate" [style.display]="submitPending ? 'block' : 'none'"></mat-progress-bar>
-    <p class="contact-form__error" *ngIf="submitError">Something went wrong. Please try again.</p>
+  @if (submitSuccessful()) {
+    <div class="contact-form__successful">
+      <mat-icon class="contact-form__tick">check_circle</mat-icon>
+      Sent! I'll be in touch shortly.
+      <mat-icon class="contact-form__smile">sentiment_very_satisfied</mat-icon>
+    </div>
+  } @else {
+    <mat-progress-bar
+      mode="indeterminate"
+      [style.display]="submitPending() ? 'block' : 'none'"
+    ></mat-progress-bar>
+    @if (submitError()) {
+      <p class="contact-form__error">Something went wrong. Please try again.</p>
+    }
     <p>
       <mat-form-field>
         <mat-label>Full Name</mat-label>
         <input
-          type="text" matInput name="from"
-          required minlength="2" [(ngModel)]="contactInfo.from" #from="ngModel">
+          type="text"
+          matInput
+          name="from"
+          required
+          minlength="2"
+          [(ngModel)]="contactInfo.from"
+          #from="ngModel"
+        />
         <mat-error [hidden]="from.invalid">
           Please enter your full name containing at lease <strong>2 characters</strong>
         </mat-error>
       </mat-form-field>
     </p>
-
     <p>
       <mat-form-field>
         <mat-label>Email</mat-label>
         <input
-          type="text" matInput name="email"
-          required email [(ngModel)]="contactInfo.email" #email="ngModel">
+          type="text"
+          matInput
+          name="email"
+          required
+          email
+          [(ngModel)]="contactInfo.email"
+          #email="ngModel"
+        />
         <mat-error [hidden]="email.invalid">
           Please enter a valid <strong>email</strong>
         </mat-error>
       </mat-form-field>
     </p>
-
     <p>
       <mat-form-field>
         <mat-label>Message</mat-label>
         <textarea
-          matInput name="message" cols="30" rows="10" maxlength="140"
-          required [(ngModel)]="contactInfo.message" #message="ngModel"></textarea>
-        <mat-hint align="end">{{message.value?.length || 0}} / 140</mat-hint>
+          matInput
+          name="message"
+          cols="30"
+          rows="10"
+          maxlength="140"
+          required
+          [(ngModel)]="contactInfo.message"
+          #message="ngModel"
+        ></textarea>
+        <mat-hint align="end">{{ message.value?.length || 0 }} / 140</mat-hint>
         <mat-error [hidden]="message.invalid">
           Please enter your <strong>message</strong>
         </mat-error>
       </mat-form-field>
     </p>
-
     <p>
-      <button mat-raised-button type="submit" [disabled]="submitPending">
-        Submit
-      </button>
+      <button mat-raised-button type="submit" [disabled]="submitPending()">Submit</button>
       <button mat-button type="reset">Reset</button>
     </p>
-  </ng-template>
+  }
 </form>

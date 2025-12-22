@@ -16,6 +16,7 @@ export class SkillEffects {
     return this.actions$.pipe(
       ofType(SkillActions.loadSkills),
       concatMap(() =>
+        /** An EMPTY observable only emits completion. Replace with your own observable API request */
         this.skillsService.getSkills().pipe(
           map((data) => SkillActions.loadSkillsSuccess({ data })),
           catchError((error) => of(SkillActions.loadSkillsFailure({ error }))),

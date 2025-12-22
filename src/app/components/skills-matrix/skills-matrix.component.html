@@ -1,17 +1,17 @@
-<div class="skillset-container" *ngIf="skillsets.length">
-  @for (skillset of skillsets; track skillset.name) {
-    <section class="skillset">
-      <h2>{{ skillset.name }}</h2>
-      <div class="skillset__canvas">
-        <canvas
-          baseChart
-          [data]="chartDataMap[skillset.name]"
-          [type]="skillset.type"
-          [options]="
-            skillset.type === 'bar' ? chartOptions.bar : chartOptions.radar
-          "
-        ></canvas>
-      </div>
-    </section>
-  }
-</div>
+@if (skillSets().length) {
+  <div class="skillset-container">
+    @for (skillSet of skillSets(); track skillSet.name) {
+      <section class="skillset">
+        <h2>{{ skillSet.name }}</h2>
+        <div class="skillset__canvas">
+          <canvas
+            baseChart
+            [data]="chartDataMap[skillSet.name]"
+            [type]="skillSet.type"
+            [options]="skillSet.type === 'bar' ? chartOptions.bar : chartOptions.radar"
+          ></canvas>
+        </div>
+      </section>
+    }
+  </div>
+}

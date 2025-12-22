@@ -7,6 +7,6 @@ export const ContactActions = createActionGroup({
   events: {
     'Send Message': props<{ data: ContactInfo }>(),
     'Send Message Success': emptyProps(),
-    'Send Message Failure': props<{ error: unknown }>(),
+    'Send Message Failure': props<{ error: string }>(),
   },
 });

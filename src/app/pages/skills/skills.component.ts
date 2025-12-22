@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Store } from '@ngrx/store';
-import { ChartType, ChartTypeRegistry } from 'chart.js/auto';
+import { ChartType } from 'chart.js/auto';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ComponentsModule } from '../../components/components.module';
-import { MaterialModule } from '../../material/material.module';
+import { SkillsMatrixComponent } from '../../components/skills-matrix/skills-matrix.component';
+import { SkillSet } from '../../models/skill.model';
 import { SkillActions } from '../../ngrx/skill/skill.actions';
 import {
   selectSkills,
@@ -16,12 +17,14 @@ import {
 
 @Component({
   selector: 'jl-skills',
-  imports: [CommonModule, MaterialModule, ComponentsModule],
+  imports: [CommonModule, MatProgressBarModule, SkillsMatrixComponent],
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss'],
 })
 export class SkillsComponent implements OnInit {
-  skillsetConfig: { name: string; type: ChartType }[] = [
+  private store = inject(Store);
+
+  skillSetConfig: { name: string; type: ChartType }[] = [
     { name: 'Frontend Essential', type: 'radar' },
     { name: 'Frontend Advanced', type: 'radar' },
     { name: 'Backend', type: 'radar' },
@@ -31,18 +34,16 @@ export class SkillsComponent implements OnInit {
   ];
 
   skillsLoading$!: Observable<boolean>;
-  skills$!: Observable<any>;
+  skills$!: Observable<{ name: string; type: ChartType; data: SkillSet }[]>;
   skillsError$!: Observable<unknown>;
-
-  constructor(private store: Store<any>) {}
 
   ngOnInit() {
     this.skillsLoading$ = this.store.select(selectSkillsLoading);
     this.skills$ = this.store.select(selectSkills).pipe(
       map((skills) => {
-        return this.skillsetConfig.map((item) => ({
+        return this.skillSetConfig.map((item) => ({
           ...item,
-          data: skills[item.name],
+          data: skills![item.name],
         }));
       }),
     );

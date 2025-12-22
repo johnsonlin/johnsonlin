@@ -1,23 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { Work } from '../../models/work.model';
-import { MaterialModule } from '../../material/material.module';
 
 @Component({
   selector: 'jl-project-tile',
   templateUrl: './project-tile.component.html',
   styleUrls: ['./project-tile.component.scss'],
-  imports: [
-    MaterialModule
-  ]
+  imports: [MatGridListModule],
 })
 export class ProjectTileComponent implements OnInit {
-  @Input() project: any;
+  readonly project = input<Work>();
   projectModel!: Work;
 
-  constructor() {}
-
   ngOnInit() {
-    this.projectModel = new Work(this.project);
+    const project = this.project();
+
+    if (project) {
+      this.projectModel = new Work(project);
+    }
   }
 }

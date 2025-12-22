@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { ComponentsModule } from '../../components/components.module';
+import { ContactFormComponent } from '../../components/contact-form/contact-form.component';
 import { ContactInfo } from '../../models/contact-info.model';
 import { ContactActions } from '../../ngrx/contact/contact.actions';
 import {
@@ -14,16 +14,16 @@ import {
 
 @Component({
   selector: 'jl-contact',
-  imports: [CommonModule, ComponentsModule],
+  imports: [CommonModule, ContactFormComponent],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
 })
 export class ContactComponent implements OnInit {
+  private store = inject(Store);
+
   messageSending$!: Observable<boolean>;
   messageSent$!: Observable<boolean>;
-  messageSendError$!: Observable<unknown>;
-
-  constructor(private store: Store<any>) {}
+  messageSendError$!: Observable<string | null>;
 
   ngOnInit() {
     this.messageSending$ = this.store.select(selectMessageSending);

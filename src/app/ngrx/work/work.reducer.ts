@@ -10,7 +10,7 @@ export const worksFeatureKey = 'works';
 export interface State extends EntityState<Work> {
   // additional entities state properties
   worksLoading: boolean;
-  worksError: any;
+  worksError: string | null;
 }
 
 export const adapter: EntityAdapter<Work> = createEntityAdapter<Work>({
@@ -58,14 +58,8 @@ export const worksFeature = createFeature({
         adaptorSelectors.selectIds,
         (entities, ids) => ids.map<Work>((id) => entities[id] || ({} as Work)),
       ),
-      selectWorksLoading: createSelector(
-        selectWorksState,
-        (state) => state.worksLoading,
-      ),
-      selectWorksError: createSelector(
-        selectWorksState,
-        (state) => state.worksError,
-      ),
+      selectWorksLoading: createSelector(selectWorksState, (state) => state.worksLoading),
+      selectWorksError: createSelector(selectWorksState, (state) => state.worksError),
     };
   },
 });
