@@ -1,6 +1,6 @@
 {
   "name": "johnsonlin",
-  "version": "8.0.1",
+  "version": "9.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
