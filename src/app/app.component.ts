@@ -1,4 +1,11 @@
-import { Component, DestroyRef, inject, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
@@ -14,6 +21,7 @@ import { selectSideNavOpened } from './ngrx/ui/ui.reducer';
   selector: 'jl-root',
   imports: [RouterOutlet, MatSidenavModule, MobileNavMenuComponent, NavMenuComponent],
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {

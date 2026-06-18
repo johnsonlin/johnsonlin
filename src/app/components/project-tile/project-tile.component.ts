@@ -1,4 +1,4 @@
-import { Component, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnInit } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 
 import { Work } from '../../models/work.model';
@@ -7,6 +7,7 @@ import { Work } from '../../models/work.model';
   selector: 'jl-project-tile',
   templateUrl: './project-tile.component.html',
   styleUrls: ['./project-tile.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatGridListModule],
 })
 export class ProjectTileComponent implements OnInit {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -13,6 +13,7 @@ import { selectWorks, selectWorksError, selectWorksLoading } from '../../ngrx/wo
   selector: 'jl-works',
   imports: [CommonModule, MatProgressBarModule, ProjectGridComponent],
   templateUrl: './works.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./works.component.scss'],
 })
 export class WorksComponent implements OnInit {

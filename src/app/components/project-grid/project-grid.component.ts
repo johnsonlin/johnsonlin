@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { Event, NavigationStart, Router } from '@angular/router';
@@ -16,6 +16,7 @@ declare const window: Window;
   selector: 'jl-project-grid',
   templateUrl: './project-grid.component.html',
   styleUrls: ['./project-grid.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ProjectTileComponent, MatGridListModule],
 })
 export class ProjectGridComponent implements OnInit {

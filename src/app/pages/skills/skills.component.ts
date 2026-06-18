@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Store } from '@ngrx/store';
 import { ChartType } from 'chart.js/auto';
@@ -19,6 +19,7 @@ import {
   selector: 'jl-skills',
   imports: [CommonModule, MatProgressBarModule, SkillsMatrixComponent],
   templateUrl: './skills.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./skills.component.scss'],
 })
 export class SkillsComponent implements OnInit {

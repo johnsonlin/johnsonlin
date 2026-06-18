@@ -1,4 +1,4 @@
-import { Component, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnInit } from '@angular/core';
 import { ChartData, ChartOptions, ChartType, ScaleOptions } from 'chart.js/auto';
 import { BaseChartDirective } from 'ng2-charts';
 
@@ -8,6 +8,7 @@ import { SkillSet } from '../../models/skill.model';
   selector: 'jl-skills-matrix',
   templateUrl: './skills-matrix.component.html',
   styleUrls: ['./skills-matrix.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BaseChartDirective],
 })
 export class SkillsMatrixComponent implements OnInit {

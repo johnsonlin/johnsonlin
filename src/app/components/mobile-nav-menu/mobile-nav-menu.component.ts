@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterLink } from '@angular/router';
@@ -11,6 +11,7 @@ import { UiActions } from '../../ngrx/ui/ui.actions';
   selector: 'jl-mobile-nav-menu',
   templateUrl: './mobile-nav-menu.component.html',
   styleUrls: ['./mobile-nav-menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, MatListModule, MatIconModule],
 })
 export class MobileNavMenuComponent {

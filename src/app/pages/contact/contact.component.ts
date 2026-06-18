@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -16,6 +16,7 @@ import {
   selector: 'jl-contact',
   imports: [CommonModule, ContactFormComponent],
   templateUrl: './contact.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./contact.component.scss'],
 })
 export class ContactComponent implements OnInit {
