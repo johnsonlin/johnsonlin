@@ -19,6 +19,12 @@ body {
   min-height: 100%;
 }
 
+html, body {
+  &:has(jl-home) {
+    overscroll-behavior: none;
+  }
+}
+
 main {
   display: block;
   padding: 20px;

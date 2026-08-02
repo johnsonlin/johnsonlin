@@ -4,7 +4,7 @@ import {
   DestroyRef,
   inject,
   OnInit,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
@@ -27,7 +27,7 @@ import { selectSideNavOpened } from './ngrx/ui/ui.reducer';
 export class AppComponent implements OnInit {
   private store = inject(Store);
 
-  @ViewChild('sidenav', { static: true }) sidenav!: MatSidenav;
+  readonly sidenav = viewChild.required<MatSidenav>('sidenav');
   sideNavOpened$!: Observable<boolean>;
   private destroyRef = inject(DestroyRef);
 
@@ -38,9 +38,9 @@ export class AppComponent implements OnInit {
       .pipe(distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
       .subscribe((opened) => {
         if (opened) {
-          this.sidenav.open();
+          this.sidenav().open();
         } else {
-          this.sidenav.close();
+          this.sidenav().close();
         }
       });
   }

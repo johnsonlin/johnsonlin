@@ -28,7 +28,6 @@ $nothing-rotation: rotateX(180deg);
   border: 1px solid black;
   background: white;
   border-collapse: collapse;
-  //opacity: 0.9;
   padding: 10px;
 
   @include mixins.screenAboveMobile {

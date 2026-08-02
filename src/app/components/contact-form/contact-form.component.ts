@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -29,7 +29,7 @@ export class ContactFormComponent {
   readonly submitPending = input<boolean | null>(false);
   readonly submitSuccessful = input<boolean | null>(false);
   readonly submitError = input<string | null>();
-  @Output() formSubmit = new EventEmitter();
+  readonly formSubmit = output<ContactInfo>();
 
   submitForm(contactForm: NgForm) {
     if (contactForm.valid) {

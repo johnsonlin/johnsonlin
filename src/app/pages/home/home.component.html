@@ -44,7 +44,7 @@
   <button
     mat-mini-fab
     class="cube-control__handle cube-control__rotate-up"
-    [ngClass]="{ 'cube-control__handle--visible': controlVisible }"
+    [class.cube-control__handle--visible]="controlVisible"
     (click)="rotateUp()"
   >
     <mat-icon>keyboard_arrow_up</mat-icon>
@@ -52,7 +52,7 @@
   <button
     mat-mini-fab
     class="cube-control__handle cube-control__rotate-right"
-    [ngClass]="{ 'cube-control__handle--visible': controlVisible }"
+    [class.cube-control__handle--visible]="controlVisible"
     (click)="rotateRight()"
   >
     <mat-icon>keyboard_arrow_right</mat-icon>
@@ -60,7 +60,7 @@
   <button
     mat-mini-fab
     class="cube-control__handle cube-control__rotate-down"
-    [ngClass]="{ 'cube-control__handle--visible': controlVisible }"
+    [class.cube-control__handle--visible]="controlVisible"
     (click)="rotateDown()"
   >
     <mat-icon>keyboard_arrow_down</mat-icon>
@@ -68,7 +68,7 @@
   <button
     mat-mini-fab
     class="cube-control__handle cube-control__rotate-left"
-    [ngClass]="{ 'cube-control__handle--visible': controlVisible }"
+    [class.cube-control__handle--visible]="controlVisible"
     (click)="rotateLeft()"
   >
     <mat-icon>keyboard_arrow_left</mat-icon>

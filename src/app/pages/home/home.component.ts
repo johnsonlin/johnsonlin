@@ -1,5 +1,5 @@
 import { Platform } from '@angular/cdk/platform';
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,7 +7,7 @@ import {
   ElementRef,
   inject,
   OnInit,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,7 +18,7 @@ import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'jl-home',
-  imports: [CommonModule, RouterLink, MatIconModule, MatButtonModule],
+  imports: [RouterLink, MatIconModule, MatButtonModule],
   templateUrl: './home.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./home.component.scss'],
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   private platform = inject(Platform);
   private elm = inject(ElementRef);
 
-  @ViewChild('cube', { static: true }) cube!: ElementRef;
+  readonly cube = viewChild.required<ElementRef>('cube');
   rotateX = 58;
   rotateY = 0;
   rotateZ = 46;
@@ -42,26 +42,26 @@ export class HomeComponent implements OnInit {
 
   rotateUp() {
     this.rotateX += 90;
-    this.cube.nativeElement.style.transform = `rotateX(${this.rotateX}deg) rotateY(${this.rotateY}deg) rotateZ(${this.rotateZ}deg)`;
+    this.cube().nativeElement.style.transform = `rotateX(${this.rotateX}deg) rotateY(${this.rotateY}deg) rotateZ(${this.rotateZ}deg)`;
   }
 
   rotateDown() {
     this.rotateX -= 90;
-    this.cube.nativeElement.style.transform = `rotateX(${this.rotateX}deg) rotateY(${this.rotateY}deg) rotateZ(${this.rotateZ}deg)`;
+    this.cube().nativeElement.style.transform = `rotateX(${this.rotateX}deg) rotateY(${this.rotateY}deg) rotateZ(${this.rotateZ}deg)`;
   }
 
   rotateLeft() {
     this.rotateZ += 90;
-    this.cube.nativeElement.style.transform = `rotateX(${this.rotateX}deg) rotateY(${this.rotateY}deg) rotateZ(${this.rotateZ}deg)`;
+    this.cube().nativeElement.style.transform = `rotateX(${this.rotateX}deg) rotateY(${this.rotateY}deg) rotateZ(${this.rotateZ}deg)`;
   }
 
   rotateRight() {
     this.rotateZ -= 90;
-    this.cube.nativeElement.style.transform = `rotateX(${this.rotateX}deg) rotateY(${this.rotateY}deg) rotateZ(${this.rotateZ}deg)`;
+    this.cube().nativeElement.style.transform = `rotateX(${this.rotateX}deg) rotateY(${this.rotateY}deg) rotateZ(${this.rotateZ}deg)`;
   }
 
   private cubeTransform() {
-    this.cube.nativeElement.style.transform = `rotateX(${this.rotateX}deg) rotateY(${this.rotateY}deg) rotateZ(${this.rotateZ}deg)`;
+    this.cube().nativeElement.style.transform = `rotateX(${this.rotateX}deg) rotateY(${this.rotateY}deg) rotateZ(${this.rotateZ}deg)`;
 
     this.bindMouseEvents();
 
@@ -118,16 +118,16 @@ export class HomeComponent implements OnInit {
 
     this.rotateZ += rotateXOffset / 100;
     this.rotateX += rotateYOffset / 100;
-    this.cube.nativeElement.style.transform = `rotateX(${this.rotateX}deg) rotateY(${this.rotateY}deg) rotateZ(${this.rotateZ}deg)`;
+    this.cube().nativeElement.style.transform = `rotateX(${this.rotateX}deg) rotateY(${this.rotateY}deg) rotateZ(${this.rotateZ}deg)`;
   }
 
   private moveStart(x: number, y: number) {
     this.mouseStartX = x;
     this.mouseStartY = y;
-    this.cube.nativeElement.classList.add('cube--moving');
+    this.cube().nativeElement.classList.add('cube--moving');
   }
 
   private moveEnd() {
-    this.cube.nativeElement.classList.remove('cube--moving');
+    this.cube().nativeElement.classList.remove('cube--moving');
   }
 }

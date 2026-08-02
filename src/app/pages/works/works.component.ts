@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Store } from '@ngrx/store';
@@ -11,7 +11,7 @@ import { selectWorks, selectWorksError, selectWorksLoading } from '../../ngrx/wo
 
 @Component({
   selector: 'jl-works',
-  imports: [CommonModule, MatProgressBarModule, ProjectGridComponent],
+  imports: [MatProgressBarModule, ProjectGridComponent, AsyncPipe],
   templateUrl: './works.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./works.component.scss'],

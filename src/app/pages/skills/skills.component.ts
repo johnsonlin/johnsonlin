@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Store } from '@ngrx/store';
@@ -17,7 +17,7 @@ import {
 
 @Component({
   selector: 'jl-skills',
-  imports: [CommonModule, MatProgressBarModule, SkillsMatrixComponent],
+  imports: [MatProgressBarModule, SkillsMatrixComponent, AsyncPipe],
   templateUrl: './skills.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./skills.component.scss'],

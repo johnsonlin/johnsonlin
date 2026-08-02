@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -14,7 +14,7 @@ import {
 
 @Component({
   selector: 'jl-contact',
-  imports: [CommonModule, ContactFormComponent],
+  imports: [ContactFormComponent, AsyncPipe],
   templateUrl: './contact.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./contact.component.scss'],
