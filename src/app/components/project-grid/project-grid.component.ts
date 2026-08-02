@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { Event, NavigationStart, Router } from '@angular/router';
@@ -24,7 +24,7 @@ export class ProjectGridComponent implements OnInit {
   private dialog = inject(MatDialog);
 
   readonly projectList = input<Work[] | null>([]);
-  gridSettings = { cols: GRID_COLS_DESKTOP };
+  gridCol = signal(GRID_COLS_DESKTOP);
   routeChanging$!: Observable<Event>;
 
   ngOnInit() {
@@ -40,8 +40,7 @@ export class ProjectGridComponent implements OnInit {
     )
       .pipe(debounceTime(500), takeUntil(this.routeChanging$))
       .subscribe((innerWidth) => {
-        this.gridSettings.cols =
-          innerWidth > MOBILE_BREAK_POINT ? GRID_COLS_DESKTOP : GRID_COLS_MOBILE;
+        this.gridCol.set(innerWidth > MOBILE_BREAK_POINT ? GRID_COLS_DESKTOP : GRID_COLS_MOBILE);
       });
   }
 
