@@ -36,9 +36,12 @@ export class ProjectGridComponent implements OnInit {
   setupGrid() {
     merge(
       of(window.innerWidth),
-      fromEvent<UIEvent>(window, 'resize').pipe(map(() => window.innerWidth)),
+      fromEvent<UIEvent>(window, 'resize').pipe(
+        debounceTime(300),
+        map(() => window.innerWidth),
+      ),
     )
-      .pipe(debounceTime(500), takeUntil(this.routeChanging$))
+      .pipe(takeUntil(this.routeChanging$))
       .subscribe((innerWidth) => {
         this.gridCol.set(innerWidth > MOBILE_BREAK_POINT ? GRID_COLS_DESKTOP : GRID_COLS_MOBILE);
       });
